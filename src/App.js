@@ -1,8 +1,8 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-// component
-import Navbar from "./navbar/navbar";
+// components
+import Navbar from "./components/navbar";
 
 // Pages
 import Create from "./pages/create/Create";
@@ -19,7 +19,7 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="create" element={<Create />}></Route>
           <Route path="search" element={<Search />}></Route>
-          <Route path="recipe/:id" element={<Recipe />}></Route>
+          <Route path="recipes/:id" element={<Recipe />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
