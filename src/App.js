@@ -1,6 +1,9 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+// component
+import Navbar from "./navbar/navbar";
+
 // Pages
 import Create from "./pages/create/Create";
 import Home from "./pages/home/Home";
@@ -11,6 +14,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="create" element={<Create />}></Route>
