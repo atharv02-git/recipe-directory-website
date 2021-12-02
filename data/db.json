@@ -36,6 +36,15 @@
       ],
       "method": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse minima ex rem quis similique eum ratione quaerat, voluptas molestias ut repudiandae delectus voluptates. Eius esse at tenetur ab accusamus excepturi?",
       "cookingTime": "35 minutes"
+    },
+    {
+      "title": "Chicken Manchow Soup",
+      "ingredients": [
+        "1 Cup cooked chicken pieces4 cups chicken stock1 tsp ginger, finely chopped1 tsp garlic, finely chopped1 tsp green chilies, finely chopped1 tbsp coriander leaves, finely chopped2 tbsp French beans, finely chopped2 tbsp carrots, finely chopped2 tbsp cabbage, finely chopped2 tbsp capsicum, finely chopped2 tbsp mushrooms, finely chopped2 spring onions, finely chopped1 tsp pepper1 tbsp soya sauce2 tbsp cornflour mixed with 1 cup water2 spring onion stems3 tbsp oilsalt (as required)"
+      ],
+      "method": "In a pan, stir fry the ginger, garlic, coriander leaves and green chilies for about 2 minutes.2.Add all the vegetables, pepper and salt and continue to stir-fry for 2 more minutes.3.Add the cooked chicken to the vegetable mixture and mix well. Add the soy sauce, chicken stock and salt.4.Let it boil, reduce the heat and add the cornflour mixed with water and stir constantly till it thickens slightly.5.Remove from heat and serve immediately.6.Garnish with spring onion stems.",
+      "cookingTime": "10 minutes",
+      "id": "pj9uvf2"
     }
   ]
 }

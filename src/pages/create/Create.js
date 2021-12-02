@@ -1,4 +1,7 @@
 import { useState, useRef } from "react";
+import { useFetch } from "../../hooks/useFetch";
+
+// styles
 import "./Create.css";
 
 export default function Create() {
@@ -8,12 +11,19 @@ export default function Create() {
   // single ingredient state
   const [newIngredient, setNewIngredient] = useState("");
   // ingredients array
-  const [ingredientsArr, setIngredientsArr] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
   const ingredientInput = useRef(null);
+
+  const { postData } = useFetch("http://localhost:3000/recipes", "POST");
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(title, method, cookingTime, ingredientsArr);
+    postData({
+      title,
+      ingredients: ingredients,
+      method,
+      cookingTime: cookingTime + " minutes",
+    });
   };
 
   const addIngredientHandler = (e) => {
@@ -21,8 +31,8 @@ export default function Create() {
 
     const ing = newIngredient.trim();
     // to check if ingredient exist already in ingredients array so no duplicate value can be put into array
-    if (ing && !ingredientsArr.includes(ing)) {
-      setIngredientsArr((prevIngredientsArr) => [...prevIngredientsArr, ing]);
+    if (ing && !ingredients.includes(ing)) {
+      setIngredients((prevIngredients) => [...prevIngredients, ing]);
     }
     setNewIngredient("");
     ingredientInput.current.focus();
@@ -58,7 +68,7 @@ export default function Create() {
         </label>
         <p>
           Current Ingredients:
-          {ingredientsArr.map((i) => (
+          {ingredients.map((i) => (
             <em key={i}>{i},</em>
           ))}
         </p>
