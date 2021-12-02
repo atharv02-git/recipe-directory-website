@@ -1,14 +1,31 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./Create.css";
 
 export default function Create() {
   const [title, setTitle] = useState("");
   const [method, setMethod] = useState("");
   const [cookingTime, setCookingTime] = useState("");
+  // single ingredient state
+  const [newIngredient, setNewIngredient] = useState("");
+  // ingredients array
+  const [ingredientsArr, setIngredientsArr] = useState([]);
+  const ingredientInput = useRef(null);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(title, method, cookingTime);
+    console.log(title, method, cookingTime, ingredientsArr);
+  };
+
+  const addIngredientHandler = (e) => {
+    e.preventDefault();
+
+    const ing = newIngredient.trim();
+    // to check if ingredient exist already in ingredients array so no duplicate value can be put into array
+    if (ing && !ingredientsArr.includes(ing)) {
+      setIngredientsArr((prevIngredientsArr) => [...prevIngredientsArr, ing]);
+    }
+    setNewIngredient("");
+    ingredientInput.current.focus();
   };
 
   return (
@@ -25,12 +42,31 @@ export default function Create() {
           />
         </label>
         {/* ingredients goes here */}
+        <label>
+          <span>Cooking Ingredients:</span>
+          <div className="ingredients">
+            <input
+              type="text"
+              onChange={(e) => setNewIngredient(e.target.value)}
+              value={newIngredient}
+              ref={ingredientInput}
+            />
+            <button onClick={addIngredientHandler} className="btn">
+              add
+            </button>
+          </div>
+        </label>
+        <p>
+          Current Ingredients:
+          {ingredientsArr.map((i) => (
+            <em key={i}>{i},</em>
+          ))}
+        </p>
         {/* Method */}
         <label>
-          <span>Cooking method:</span>
-          <input
+          <span>Recipe Method:</span>
+          <textarea
             onChange={(e) => setMethod(e.target.value)}
-            type="text"
             value={method}
             required
           />
