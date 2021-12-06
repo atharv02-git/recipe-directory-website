@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // components
 import Navbar from "./components/Navbar";
+import ThemeSelector from "./components/ThemeSelector";
 
 // Pages
 import Create from "./pages/create/Create";
@@ -15,6 +16,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Navbar />
+        <ThemeSelector />
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="create" element={<Create />}></Route>
