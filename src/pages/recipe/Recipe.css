@@ -6,6 +6,9 @@
   padding: 40px;
   box-sizing: border-box;
 }
+.recipe>h2{
+  text-decoration: underline;
+}
 .recipe ul {
   display: flex;
   padding: 0;
@@ -26,3 +29,16 @@
 .method {
   text-align: left;
 }
+/* dark mode */
+.recipe.dark {
+  background: #555;
+  color: #e4e4e4;
+}
+.recipe.dark>h2{
+  color: #e4e4e4;
+  text-decoration: underline;
+}
+.recipe.dark li{
+  color: #e4e4e4;
+}
+

@@ -3,7 +3,7 @@ import modeIcon from "../assets/mode-icon.svg"
 // Styles
 import "./ThemeSelector.css";
 
-const themeColors = ["#58249c", "#249c6b", "#d9534f","#f0ad4e"];
+const themeColors = ["#58249c", "#249c6b", "#d9534f"];
 
 export default function ThemeSelector() {
   const { changeColor,mode,changeMode } = useTheme();
@@ -11,7 +11,7 @@ export default function ThemeSelector() {
     const changeModeHandler = () => {
         changeMode(mode === 'dark' ? 'light' : 'dark')
     }
-    console.log(mode)
+    // console.log(mode)
 
   return (
     <div className="theme-selector">
