@@ -11,6 +11,7 @@ import Create from "./pages/create/Create";
 import Home from "./pages/home/Home";
 import Recipe from "./pages/recipe/Recipe";
 import Search from "./pages/search/Search";
+import Edit from "./pages/edit/Edit";
 
 function App() {
   const { mode } = useTheme()
@@ -25,6 +26,7 @@ function App() {
           <Route path="create" element={<Create />}></Route>
           <Route path="search" element={<Search />}></Route>
           <Route path="recipes/:id" element={<Recipe />}></Route>
+          <Route path="edit/:id" element={<Edit />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

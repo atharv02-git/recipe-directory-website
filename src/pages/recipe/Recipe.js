@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
-
+import { Link } from "react-router-dom";
 // Hooks
 import { useFetch } from "../../hooks/useFetch";
 import { useTheme } from "../../hooks/useTheme";
@@ -38,6 +38,7 @@ export default function Recipe() {
             ))}
           </ul>
           <p className="method">{recipe.method}</p>
+          <Link className="button" to={`/edit/${id}`}>Edit Recipe</Link>
         </>
       )}
     </div>

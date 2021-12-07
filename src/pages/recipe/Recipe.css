@@ -29,6 +29,19 @@
 .method {
   text-align: left;
 }
+.recipe a {
+  color: #555;
+  text-decoration: none;
+  display: block;
+  background: #e2e2e2;
+  font-size: 0.9em;
+  width: 100px;
+  text-align: center;
+  width: 120px;
+  padding: 8px;
+  border-radius: 4px;
+  margin: 20px auto 0;
+}
 /* dark mode */
 .recipe.dark {
   background: #555;
