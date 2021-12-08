@@ -2,6 +2,7 @@
   color: #555;
   max-width: 480px;
   margin: 60px auto;
+  transition: all 0.3s ease;
 }
 .create label span {
   display: block;
@@ -29,4 +30,12 @@
 }
 .ingredients button {
   margin: 0 0 0 10px;
+}
+/* input{
+  transition: all 0.3s ease;
+} */
+.create.dark,
+.create.dark > h2 {
+  color: #ffffff;
+  transition: all 0.3s ease;
 }
