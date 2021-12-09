@@ -1,9 +1,10 @@
-import { useState, useRef } from "react";
+import { useState, useRef} from "react";
 // style
 import "./Edit.css";
 
 // Hooks
 import { useTheme } from "../../hooks/useTheme";
+
 
 export default function Edit() {
   const [title, setTitle] = useState("");
@@ -79,7 +80,7 @@ export default function Edit() {
             required
           />
         </label>
-        <button className="btn">Submit</button>
+        <button className="btn">Update</button>
       </form>
     </div>
   );
