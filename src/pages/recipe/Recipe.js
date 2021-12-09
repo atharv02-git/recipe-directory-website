@@ -33,6 +33,9 @@ export default function Recipe() {
           setIsPending(false);
           setError("Ops, couldn't find that recipe :(");
         }
+      })
+      .catch((err) => {
+        setError(err.message);
       });
   }, [id]);
 
