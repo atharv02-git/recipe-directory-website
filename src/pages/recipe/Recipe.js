@@ -20,7 +20,7 @@ export default function Recipe() {
       // if any error navigate(or redirect) to home page
       setTimeout(() => {
         navigate("/");
-      }, 1000);
+      }, 1200);
     }
   }, [error, navigate]);
 
