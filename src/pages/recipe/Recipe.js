@@ -1,8 +1,9 @@
-import { useEffect } from "react";
-import { useParams, useNavigate } from "react-router";
+import { projectFirestore } from "../../firebase/config";
+
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 // Hooks
-import { useFetch } from "../../hooks/useFetch";
 import { useTheme } from "../../hooks/useTheme";
 
 // Styles
@@ -10,22 +11,33 @@ import "./Recipe.css";
 
 export default function Recipe() {
   const { id } = useParams();
-  const url = "http://localhost:3000/recipes/" + id;
-  const { data: recipe, isPending, error } = useFetch(url);
-  const navigate = useNavigate();
-  const {mode} = useTheme()
+  const { mode } = useTheme();
+
+  const [recipe, setRecipe] = useState("");
+  const [isPending, setIsPending] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    if (error) {
-      // if any error navigate(or redirect) to home page
-      setTimeout(() => {
-        navigate("/");
-      }, 1200);
-    }
-  }, [error, navigate]);
+    setIsPending(true);
+
+    projectFirestore
+      .collection("recipes")
+      .doc(id)
+      .get()
+      .then((doc) => {
+        console.log(doc);
+        if (doc.exists) {
+          setIsPending(false);
+          setRecipe(doc.data());
+        } else {
+          setIsPending(false);
+          setError("Ops, couldn't find that recipe :(");
+        }
+      });
+  }, [id]);
 
   return (
-    <div className={`recipe ${ mode }`}>
+    <div className={`recipe ${mode}`}>
       {error && <div>{error}</div>}
       {isPending && <div>Loading...</div>}
       {recipe && (
@@ -38,7 +50,9 @@ export default function Recipe() {
             ))}
           </ul>
           <p className="method">{recipe.method}</p>
-          <Link className="button" to={`/edit/${id}`}>Edit Recipe</Link>
+          <Link className="button" to={`/edit/${id}`}>
+            Edit Recipe
+          </Link>
         </>
       )}
     </div>
