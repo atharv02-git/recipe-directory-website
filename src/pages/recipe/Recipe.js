@@ -1,41 +1,44 @@
-import { useParams } from 'react-router-dom'
-import { useTheme } from '../../hooks/useTheme'
-import { useState, useEffect } from 'react'
-import { projectFirestore } from '../../firebase/config'
+import { useParams } from "react-router-dom";
+import { useTheme } from "../../hooks/useTheme";
+import { useState, useEffect } from "react";
+import { projectFirestore } from "../../firebase/config";
+import { Link } from "react-router-dom";
 
 // styles
-import './Recipe.css'
+import "./Recipe.css";
 
 export default function Recipe() {
-  const { id } = useParams()
-  const { mode } = useTheme()
+  const { id } = useParams();
+  const { mode } = useTheme();
 
-  const [isPending, setIsPending] = useState(false)
-  const [error, setError] = useState(null)
-  const [recipe, setRecipe] = useState(null)
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState(null);
+  const [recipe, setRecipe] = useState(null);
 
   useEffect(() => {
-    setIsPending(true)
+    setIsPending(true);
 
-    const unSubscribe = projectFirestore.collection('recipes').doc(id).onSnapshot(doc => {
-      if (doc.exists) {
-        setIsPending(false)
-        setRecipe(doc.data())
-      } else {
-        setIsPending(false)
-        setError(`Could not find that recipe`)
-      }
-    })
+    const unSubscribe = projectFirestore
+      .collection("recipes")
+      .doc(id)
+      .onSnapshot((doc) => {
+        if (doc.exists) {
+          setIsPending(false);
+          setRecipe(doc.data());
+        } else {
+          setIsPending(false);
+          setError(`Could not find that recipe`);
+        }
+      });
 
-    return () => unSubscribe()
+    return () => unSubscribe();
+  }, [id]);
 
-  }, [id])
-
-  const handleClick = () => {
-    projectFirestore.collection('recipes').doc(id).update({
-      title: 'Updated title'
-    })
-  }
+  // const handleClick = () => {
+  //   projectFirestore.collection('recipes').doc(id).update({
+  //     title: 'Veggie Stew'
+  //   })
+  // }
 
   return (
     <div className={`recipe ${mode}`}>
@@ -46,12 +49,21 @@ export default function Recipe() {
           <h2 className="page-title">{recipe.title}</h2>
           <p>Takes {recipe.cookingTime} to cook.</p>
           <ul>
-            {recipe.ingredients.map(ingredient => <li key={ingredient}>{ingredient}</li>)}
+            Recipe includes
+            {recipe.ingredients.map((ingredient) => (
+              <li key={ingredient}>{ingredient}</li>
+            ))}
           </ul>
           <em className="method">{recipe.method}</em>
-          <button className= "button"onClick={handleClick}>Update me</button>
+          <Link
+            className="button"
+            to={`/edit/${id}}`}
+            state={{ recipe: recipe, }}
+          >
+            Edit
+          </Link>
         </>
       )}
     </div>
-  )
+  );
 }

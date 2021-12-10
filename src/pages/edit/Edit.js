@@ -1,3 +1,7 @@
+// import { projectFirestore } from "../../firebase/config";
+import { useParams, useLocation } from "react-router";
+// import { useNavigate } from 'react-router-dom';
+
 import { useState, useRef} from "react";
 // style
 import "./Edit.css";
@@ -7,11 +11,14 @@ import { useTheme } from "../../hooks/useTheme";
 
 
 export default function Edit() {
-  const [title, setTitle] = useState("");
-  const [method, setMethod] = useState("");
-  const [cookingTime, setCookingTime] = useState("");
+  const location = useLocation()
+  const { recipe } = location.state;
+
+  const [title, setTitle] = useState(recipe.title);
+  const [method, setMethod] = useState(recipe.method);
+  const [cookingTime, setCookingTime] = useState(recipe.cookingTime.slice(0, 1));
   const [newIngredient, setNewIngredient] = useState("");
-  const [ingredients, setIngredients] = useState([]);
+  const [ingredients, setIngredients] = useState(recipe.ingredients);
   // useRef
   const ingredientInput = useRef(null);
 

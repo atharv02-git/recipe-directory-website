@@ -14,11 +14,15 @@
   padding: 0;
   justify-content: center;
   margin-top: 0;
+
 }
 .recipe li {
   list-style-type: none;
   margin-right: 10px;
   color: #777;
+}
+.recipe li:first-child::before{
+  content:": ";
 }
 .recipe li::after {
   content: ",";
