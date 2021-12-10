@@ -1,63 +1,57 @@
-import { projectFirestore } from "../../firebase/config";
+import { useParams } from 'react-router-dom'
+import { useTheme } from '../../hooks/useTheme'
+import { useState, useEffect } from 'react'
+import { projectFirestore } from '../../firebase/config'
 
-import { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import { Link } from "react-router-dom";
-// Hooks
-import { useTheme } from "../../hooks/useTheme";
-
-// Styles
-import "./Recipe.css";
+// styles
+import './Recipe.css'
 
 export default function Recipe() {
-  const { id } = useParams();
-  const { mode } = useTheme();
+  const { id } = useParams()
+  const { mode } = useTheme()
 
-  const [recipe, setRecipe] = useState("");
-  const [isPending, setIsPending] = useState("");
-  const [error, setError] = useState("");
+  const [isPending, setIsPending] = useState(false)
+  const [error, setError] = useState(null)
+  const [recipe, setRecipe] = useState(null)
 
   useEffect(() => {
-    setIsPending(true);
+    setIsPending(true)
 
-    projectFirestore
-      .collection("recipes")
-      .doc(id)
-      .get()
-      .then((doc) => {
-        console.log(doc);
-        if (doc.exists) {
-          setIsPending(false);
-          setRecipe(doc.data());
-        } else {
-          setIsPending(false);
-          setError("Ops, couldn't find that recipe :(");
-        }
-      })
-      .catch((err) => {
-        setError(err.message);
-      });
-  }, [id]);
+    const unSubscribe = projectFirestore.collection('recipes').doc(id).onSnapshot(doc => {
+      if (doc.exists) {
+        setIsPending(false)
+        setRecipe(doc.data())
+      } else {
+        setIsPending(false)
+        setError(`Could not find that recipe`)
+      }
+    })
+
+    return () => unSubscribe()
+
+  }, [id])
+
+  const handleClick = () => {
+    projectFirestore.collection('recipes').doc(id).update({
+      title: 'Updated title'
+    })
+  }
 
   return (
     <div className={`recipe ${mode}`}>
-      {error && <div>{error}</div>}
-      {isPending && <div>Loading...</div>}
+      {error && <p className="error">{error}</p>}
+      {isPending && <p className="loading">Loading...</p>}
       {recipe && (
         <>
           <h2 className="page-title">{recipe.title}</h2>
-          <p>Takes {recipe.cookingTime} to cook</p>
+          <p>Takes {recipe.cookingTime} to cook.</p>
           <ul>
-            {recipe.ingredients.map((ingredient) => (
-              <li key={ingredient}>{ingredient}</li>
-            ))}
+            {recipe.ingredients.map(ingredient => <li key={ingredient}>{ingredient}</li>)}
           </ul>
-          <p className="method">{recipe.method}</p>
-          <Link className="button" to={`/edit/${id}`}>
-            Edit Recipe
-          </Link>
+          <em className="method">{recipe.method}</em>
+          <button className= "button"onClick={handleClick}>Update me</button>
         </>
       )}
     </div>
-  );
+  )
 }
