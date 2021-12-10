@@ -15,12 +15,11 @@ export default function Home() {
   const [isPending, setIsPending] = useState("");
   const [error, setError] = useState("");
 
+  // function to fetch data from firestore in home page
   useEffect(() => {
     setIsPending(true);
-
-    projectFirestore
-      .collection("recipes").get()
-      .then((snapshot) => {
+    // where unSub is a cleanup function
+    const unSub = projectFirestore.collection("recipes").onSnapshot((snapshot) => {
         if (snapshot.empty) {
           setError("Ops, No recipes to load :(");
           setIsPending(false);
@@ -32,10 +31,12 @@ export default function Home() {
           setData(results);
           setIsPending(false);
         }
+      }, (err)=>{
+        setError(err.message)
+        setIsPending(false)
       })
-      .catch((err) => {
-        setError(err.message);
-      });
+      
+      return ()=>{unSub()}
   }, []);
 
   return (

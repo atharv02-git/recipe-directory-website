@@ -1,20 +1,25 @@
-import { useFetch } from '../../hooks/useFetch'
-import { useLocation } from 'react-router-dom'
-import RecipeList from '../../components/RecipeList'
+// import { projectFirestore } from "../../firebase/config";
+// import {useEffect,useState} from 'react'
+
+import {useFetch} from '../../hooks/useFetch'
+
+import { useLocation } from "react-router-dom";
+import RecipeList from "../../components/RecipeList";
 import { useTheme } from "../../hooks/useTheme";
 
 // styles
-import './Search.css'
+import "./Search.css";
 
 export default function Search() {
   const { mode } = useTheme();
 
-  const queryString = useLocation().search
-  const queryParams = new URLSearchParams(queryString)
-  const query = queryParams.get('_q')
 
-  const url = 'http://localhost:3000/recipes?q=' + query
-  const { error, isPending, data } = useFetch(url)
+  const queryString = useLocation().search;
+  const queryParams = new URLSearchParams(queryString);
+  const query = queryParams.get("_q");
+
+  const url = "http://localhost:3000/recipes?q=" + query;
+  const { error, isPending, data } = useFetch(url);
 
   return (
     <div>
@@ -23,5 +28,5 @@ export default function Search() {
       {isPending && <p className="loading">Loading...</p>}
       {data && <RecipeList recipes={data} />}
     </div>
-  )
+  );
 }
