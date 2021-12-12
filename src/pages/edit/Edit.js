@@ -27,40 +27,28 @@ export default function Edit() {
   const navigate = useNavigate();
   // Destructuring id
   const { id } = useParams();
-  
-    const updatedRecipe = async(id) => {
-      try {
-        await projectFirestore.collection("recipes").doc(id).update({});
-        const doc = await projectFirestore.collection("recipes").doc(id).get();
-        const Recipe = {
-          title: doc.title,
-          ingredients: doc.ingredients,
-          method: doc.method,
-          cookingTime:
-            doc.cookingTime.slice(0, 1) === "1"
-              ? doc.cookingTime.slice(0, 1) + "minute"
-              : doc.cookingTime.slice(0, 1) + "minutes",
-        };
-        
-        console.log(Recipe)
-        return Recipe
-        // 
-      } catch (err) {
-        console.log(err);
-      }
-    }
 
   const submitFormHandler = async (e) => {
     e.preventDefault();
     console.log(title, method, cookingTime, ingredients);
-    await updatedRecipe()
-    navigate("/");
+    try {
+      await projectFirestore
+        .collection("recipes")
+        .doc(id)
+        .update({
+          title:title,
+          ingredients:ingredients,
+          method:method,
+          cookingTime:
+            cookingTime.slice(0, 1) === "1"
+              ? cookingTime.slice(0, 1) + "minute"
+              : cookingTime.slice(0, 1) + "minutes",
+        });
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
-
-  // const deleteIngredient = (ing) => {
-  //   const newIngs = ingredients.filter((ingredient) => ingredient !== ing);
-  //   setIngredients(newIngs);
-  // };
 
   const addIngredientHandler = (e) => {
     e.preventDefault();
@@ -108,13 +96,12 @@ export default function Edit() {
               <span
                 className="ingredient"
                 key={i}
-                // onClick={() => deleteIngredient(i)}
               >
                 {i}{" "}
               </span>
             ))}
           </p>
-
+          
           <label>
             <span>Recipe Method:</span>
             <textarea
@@ -132,7 +119,7 @@ export default function Edit() {
               required
             />
           </label>
-          <button className="btn" onClick={() => updatedRecipe(id)}>Update</button>
+          <button className="btn">Update</button>
         </form>
       )}
     </div>
