@@ -39,10 +39,10 @@ export default function Edit() {
           title:title,
           ingredients:ingredients,
           method:method,
-          cookingTime:
-            cookingTime.slice(0, 1) === "1"
-              ? cookingTime.slice(0, 1) + "minute"
-              : cookingTime.slice(0, 1) + "minutes",
+          cookingTime:cookingTime
+            // cookingTime.slice(0, 1) === "1"
+            //   ? cookingTime.slice(0, 1) + "minute"
+            //   : cookingTime.slice(0, 1) + "minutes",
         });
       navigate("/");
     } catch (err) {
