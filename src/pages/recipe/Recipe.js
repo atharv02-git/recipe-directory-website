@@ -34,12 +34,6 @@ export default function Recipe() {
     return () => unSubscribe();
   }, [id]);
 
-  // const handleClick = () => {
-  //   projectFirestore.collection('recipes').doc(id).update({
-  //     title: 'Veggie Stew'
-  //   })
-  // }
-
   return (
     <div className={`recipe ${mode}`}>
       {error && <p className="error">{error}</p>}
@@ -49,7 +43,6 @@ export default function Recipe() {
           <h2 className="page-title">{recipe.title}</h2>
           <p>Takes {recipe.cookingTime} to cook.</p>
           <ul>
-            Recipe includes
             {recipe.ingredients.map((ingredient) => (
               <li key={ingredient}>{ingredient}</li>
             ))}
@@ -57,7 +50,7 @@ export default function Recipe() {
           <em className="method">{recipe.method}</em>
           <Link
             className="button"
-            to={`/edit/${id}}`}
+            to={`/edit/${id}`}
             state={{ recipe: recipe, }}
           >
             Edit
