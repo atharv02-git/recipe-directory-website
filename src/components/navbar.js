@@ -3,7 +3,7 @@ import { useTheme } from "../hooks/useTheme";
 
 // styles
 import "./Navbar.css";
-import SearchBar from "./SearchBar";
+// import SearchBar from "./SearchBar";
 
 export default function Navbar() {
   const { defaultColor } = useTheme();
@@ -14,7 +14,8 @@ export default function Navbar() {
         <Link to="/" className="brand">
           <h1>My Recipes</h1>
         </Link>
-        <SearchBar />
+        {/* <SearchBar /> */}
+        <a className="source-code" href="https://github.com/atharv02-git/recipe-directory-website">Source Code</a>
         <Link to="/create">Create Recipe</Link>
       </nav>
     </div>
